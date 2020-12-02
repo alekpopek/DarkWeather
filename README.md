@@ -3,6 +3,9 @@ A simple iOS Swift demo project showcasing the setup of MVVMC Architecture, APIC
 
 ![Screenshots](/docs/images/darkweather.png?raw=true "Screenshots")
 
+## Configuration
+In order to use the app you need to add your darksky.net API key in `AppSecrets.swift` file.
+
 ## Features
 - [x] Dark mode support
 - [x] Content is backend driven
