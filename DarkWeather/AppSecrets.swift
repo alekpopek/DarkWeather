@@ -8,6 +8,6 @@
 import Foundation
 
 class Secrets {
-    #error("Please add your darksky.net API key below, then delete this line.")
+    #warning("Please add your darksky.net API key below, then delete this line.")
     static var apiKey: String = ""
 }
