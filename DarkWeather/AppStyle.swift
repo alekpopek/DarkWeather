@@ -14,7 +14,7 @@ class Style {
     ///   - size: font size
     ///   - weight: font weight
     /// - Returns: UIFont
-    static func font(ofSize size:CGFloat, weight:UIFont.Weight) -> UIFont {
+    static func font(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
         let systemFont = UIFont.systemFont(ofSize: size, weight: weight)
         if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
             return UIFont(descriptor: descriptor, size: size)

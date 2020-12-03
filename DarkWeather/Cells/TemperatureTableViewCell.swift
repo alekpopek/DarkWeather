@@ -14,17 +14,17 @@ class TemperatureTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-                
+
         selectionStyle = .none
-        
+
         setupTemperatureLabel()
         setupSummaryLabel()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setupTemperatureLabel() {
         contentView.addSubview(temperatureLabel)
 
@@ -41,7 +41,7 @@ class TemperatureTableViewCell: UITableViewCell {
 
     private func setupSummaryLabel() {
         contentView.addSubview(summaryLabel)
-        
+
         summaryLabel.font = Style.font(ofSize: 16.0, weight: .regular)
         summaryLabel.textColor = UIColor.secondaryLabel
         summaryLabel.textAlignment = .center

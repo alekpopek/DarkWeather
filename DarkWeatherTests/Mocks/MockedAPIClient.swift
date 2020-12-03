@@ -8,12 +8,12 @@
 import Foundation
 @testable import DarkWeather
 
-class MockedAPIClient<T:Decodable>: APIClientProtocol {
-    
-    var forcedError:APIError?
-    var data:T? = nil
+class MockedAPIClient<T: Decodable>: APIClientProtocol {
 
-    func request<T:Decodable>(
+    var forcedError: APIError?
+    var data: T?
+
+    func request<T: Decodable>(
         target: APIService,
         type: T.Type,
         session: URLSession,
@@ -22,7 +22,11 @@ class MockedAPIClient<T:Decodable>: APIClientProtocol {
         if let error = forcedError {
             completion(.failure(error))
         } else {
-            completion(.success(data as! T))
+            if let data = data as? T {
+                completion(.success(data))
+            } else {
+                completion(.failure(.noDataError))
+            }
         }
     }
 }

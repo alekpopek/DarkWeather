@@ -9,13 +9,13 @@ import Foundation
 @testable import DarkWeather
 
 protocol MockedWeather {
-    var mockedWeatherJSON:String { get }
-    var mockedWeather:Weather { get }
+    var mockedWeatherJSON: String { get }
+    var mockedWeather: Weather { get }
 }
 
 extension MockedWeather {
-    var mockedWeather:Weather {
-        guard let jsonData:Data = mockedWeatherJSON.data(using: .utf8) else {
+    var mockedWeather: Weather {
+        guard let jsonData: Data = mockedWeatherJSON.data(using: .utf8) else {
             fatalError("Cannot create data from string")
         }
         guard let weather = try? JSONDecoder().decode(Weather.self, from: jsonData) else {
@@ -24,7 +24,7 @@ extension MockedWeather {
         return weather
     }
 
-    var mockedWeatherJSON:String {
+    var mockedWeatherJSON: String {
         return """
         {
             "currently": {

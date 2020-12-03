@@ -8,6 +8,6 @@
 import Foundation
 
 struct HourlyForecast: Codable {
-    let summary:String
-    let data:[HourlyData]
+    let summary: String
+    let data: [HourlyData]
 }

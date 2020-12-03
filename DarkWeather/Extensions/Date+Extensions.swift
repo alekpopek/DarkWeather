@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-    var formattedDate:String {
+    var formattedDate: String {
         let calendar = Calendar(identifier: .iso8601)
         if calendar.isDateInToday(self) {
             return "TODAY"

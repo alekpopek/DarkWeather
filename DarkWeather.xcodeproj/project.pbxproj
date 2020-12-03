@@ -15,6 +15,8 @@
 		747E543A2577EEA600E316F6 /* MockedURLSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747E54392577EEA600E316F6 /* MockedURLSessionDataTask.swift */; };
 		747E54422578091A00E316F6 /* MockedAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747E54412578091A00E316F6 /* MockedAPIClient.swift */; };
 		747E545925780DF200E316F6 /* MockedWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747E545825780DF200E316F6 /* MockedWeather.swift */; };
+		7482FA682578F00600877B0F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7482FA672578F00600877B0F /* README.md */; };
+		7482FA732578F0A700877B0F /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7482FA722578F0A700877B0F /* ErrorTableViewCell.swift */; };
 		74AF5EDB2576AC8F0008F8F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AF5EDA2576AC8F0008F8F2 /* AppDelegate.swift */; };
 		74AF5EDF2576AC8F0008F8F2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AF5EDE2576AC8F0008F8F2 /* MainViewController.swift */; };
 		74AF5EE42576AC900008F8F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74AF5EE32576AC900008F8F2 /* Assets.xcassets */; };
@@ -71,6 +73,8 @@
 		747E54392577EEA600E316F6 /* MockedURLSessionDataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedURLSessionDataTask.swift; sourceTree = "<group>"; };
 		747E54412578091A00E316F6 /* MockedAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedAPIClient.swift; sourceTree = "<group>"; };
 		747E545825780DF200E316F6 /* MockedWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedWeather.swift; sourceTree = "<group>"; };
+		7482FA672578F00600877B0F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7482FA722578F0A700877B0F /* ErrorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTableViewCell.swift; sourceTree = "<group>"; };
 		74AF5ED72576AC8F0008F8F2 /* DarkWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DarkWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74AF5EDA2576AC8F0008F8F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74AF5EDE2576AC8F0008F8F2 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 		74AF5ECE2576AC8F0008F8F2 = {
 			isa = PBXGroup;
 			children = (
+				7482FA672578F00600877B0F /* README.md */,
 				74AF5ED92576AC8F0008F8F2 /* DarkWeather */,
 				74AF5EF02576AC900008F8F2 /* DarkWeatherTests */,
 				74AF5EFB2576AC900008F8F2 /* DarkWeatherUITests */,
@@ -254,8 +259,9 @@
 		74F78FB32576CC8B0085DD15 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				74F78FB42576CCF00085DD15 /* TemperatureTableViewCell.swift */,
 				74F78FD62576E3F10085DD15 /* DailyTableViewCell.swift */,
+				7482FA722578F0A700877B0F /* ErrorTableViewCell.swift */,
+				74F78FB42576CCF00085DD15 /* TemperatureTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -278,6 +284,7 @@
 				74AF5ED32576AC8F0008F8F2 /* Sources */,
 				74AF5ED42576AC8F0008F8F2 /* Frameworks */,
 				74AF5ED52576AC8F0008F8F2 /* Resources */,
+				7482FA7A2578F48700877B0F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -371,6 +378,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7482FA682578F00600877B0F /* README.md in Resources */,
 				74AF5EE72576AC900008F8F2 /* LaunchScreen.storyboard in Resources */,
 				74AF5EE42576AC900008F8F2 /* Assets.xcassets in Resources */,
 			);
@@ -391,6 +399,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7482FA7A2578F48700877B0F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		74AF5ED32576AC8F0008F8F2 /* Sources */ = {
@@ -417,6 +445,7 @@
 				74F78FE12576EE180085DD15 /* Collection+Extensions.swift in Sources */,
 				74AF5F5F2576B43D0008F8F2 /* Weather.swift in Sources */,
 				74F78FD72576E3F10085DD15 /* DailyTableViewCell.swift in Sources */,
+				7482FA732578F0A700877B0F /* ErrorTableViewCell.swift in Sources */,
 				74AF5F382576AEFB0008F8F2 /* APIClientProtocol.swift in Sources */,
 				74F78FBD2576CFF40085DD15 /* UITableView+Extensions.swift in Sources */,
 				74F78FE72576F4260085DD15 /* LocationManager.swift in Sources */,

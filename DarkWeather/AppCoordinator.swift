@@ -9,9 +9,9 @@ import UIKit
 
 protocol Coordinator {
     var navigationController: UINavigationController { get set }
-    
+
     init(navigationController: UINavigationController)
-    
+
     func start()
 }
 
@@ -21,19 +21,19 @@ class AppCoordinator: Coordinator {
 
     var navigationController: UINavigationController
 
-    required init(navigationController:UINavigationController = UINavigationController()) {
+    required init(navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
     }
-    
+
     func start() {
         window = UIWindow(frame: UIScreen.main.bounds)
-        
+
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
-        
+
         showMainViewController()
     }
-    
+
     func showMainViewController() {
         /// Initialize viewModel
         let viewModel = MainViewModel()

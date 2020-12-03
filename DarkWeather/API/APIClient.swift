@@ -11,8 +11,8 @@ enum APIError: Error {
     case noDataError
     case networkError
     case decodingError
-    
-    var message:String {
+
+    var message: String {
         switch self {
         case .decodingError:
             return "Decoding error"
@@ -30,25 +30,25 @@ enum Result<T> {
 }
 
 /// API Client class. Requests should be made through this class only.
-final class APIClient:APIClientProtocol {
-    
+final class APIClient: APIClientProtocol {
+
     /// Designated request-making method.
-    func request<T:Decodable>(
+    func request<T: Decodable>(
         target: APIService,
         type: T.Type,
         session: URLSession = URLSession(configuration: .default),
         completion: @escaping (Result<T>) -> Void) {
-    
+
         let dataTask = session.dataTask(
             with: URL(target: target)
-        ) { data, response, error in
+        ) { data, _, error in
             var result: Result<T>
-            
+
             switch target {
             case .getWeather:
                 result = self.serializedJSON(with: data, error: error)
             }
-            
+
             DispatchQueue.main.async {
                 completion(result)
             }
@@ -61,7 +61,7 @@ final class APIClient:APIClientProtocol {
 
 extension APIClient {
     /// Used to deserialize `JSON` from `Data` object passed in parameters
-    func serializedJSON<T:Decodable>(with data: Data?, error: Error?) -> Result<T> {
+    func serializedJSON<T: Decodable>(with data: Data?, error: Error?) -> Result<T> {
         if error != nil { return .failure(.networkError) }
         guard let data = data else { return .failure(.noDataError) }
         do {

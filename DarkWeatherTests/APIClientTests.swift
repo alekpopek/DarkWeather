@@ -9,94 +9,94 @@ import XCTest
 @testable import DarkWeather
 
 class APIClientTests: XCTestCase, MockedWeather {
-    
+
     let failingJSON = "{]"
     let apiClient = APIClient()
-    
+
     func testSerializedJSONSucess() {
         /// Given
-        guard let jsonData:Data = mockedWeatherJSON.data(using: .utf8) else {
+        guard let jsonData: Data = mockedWeatherJSON.data(using: .utf8) else {
             fatalError("Cannot create data from string")
         }
-        let error:Error? = nil
-        
+        let error: Error? = nil
+
         /// When
         let result = apiClient.serializedJSON(with: jsonData, error: error) as Result<Weather>
-        
+
         /// Then
         switch result {
         case .success(let response):
             XCTAssertEqual(2, response.hourly.data.count)
             XCTAssertEqual(2, response.daily.data.count)
-        case .failure(_):
-            XCTFail()
+        case .failure:
+            XCTFail("testSerializedJSONSucess failed")
         }
     }
-    
+
     func testSerializedJSONFailureDecodingError() {
         /// Given
-        guard let jsonData:Data = failingJSON.data(using: .utf8) else {
+        guard let jsonData: Data = failingJSON.data(using: .utf8) else {
             fatalError("Cannot create data from string")
         }
-        let error:Error? = nil
-        
+        let error: Error? = nil
+
         /// When
         let result = apiClient.serializedJSON(with: jsonData, error: error) as Result<Weather>
-        
+
         /// Then
         switch result {
-        case .success(_):
-            XCTFail()
+        case .success:
+            XCTFail("testSerializedJSONFailureDecodingError failed")
         case .failure(let error):
             XCTAssertEqual(error, .decodingError)
         }
     }
-    
+
     func testSerializedJSONFailureNoDataError() {
         /// Given
-        let jsonData:Data? = nil
-        let error:Error? = nil
-        
+        let jsonData: Data? = nil
+        let error: Error? = nil
+
         /// When
         let result = apiClient.serializedJSON(with: jsonData, error: error) as Result<Weather>
-        
+
         /// Then
         switch result {
-        case .success(_):
-            XCTFail()
+        case .success:
+            XCTFail("testSerializedJSONFailureNoDataError failed")
         case .failure(let error):
             XCTAssertEqual(error, .noDataError)
         }
     }
-    
+
     func testSerializedJSONFailureNetworkError() {
         /// Given
-        let jsonData:Data? = nil
-        let error:Error? = MockedError()
-        
+        let jsonData: Data? = nil
+        let error: Error? = MockedError()
+
         /// When
         let result = apiClient.serializedJSON(with: jsonData, error: error) as Result<Weather>
-        
+
         /// Then
         switch result {
-        case .success(_):
-            XCTFail()
+        case .success:
+            XCTFail("testSerializedJSONFailureNetworkError failed")
         case .failure(let error):
             XCTAssertEqual(error, .networkError)
         }
     }
-    
+
     func testRequest() {
         /// Given
-        guard let jsonData:Data = mockedWeatherJSON.data(using: .utf8) else {
+        guard let jsonData: Data = mockedWeatherJSON.data(using: .utf8) else {
             fatalError("Cannot create data from string")
         }
-        let error:Error? = nil
-        
-        let apiClient:APIClient = APIClient()
+        let error: Error? = nil
+
+        let apiClient: APIClient = APIClient()
         let mockedURLSession = MockedURLSession(data: jsonData, urlResponse: nil, error: error)
-        var weatherResult:Result<Weather>?
-        
+        var weatherResult: Result<Weather>?
+
         /// When
         let expectation = XCTestExpectation(description: "load weather")
         apiClient.request(
@@ -111,7 +111,7 @@ class APIClientTests: XCTestCase, MockedWeather {
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 1.0)
-        
+
         /// Then
         XCTAssertNotNil(weatherResult)
         switch weatherResult {
@@ -119,10 +119,10 @@ class APIClientTests: XCTestCase, MockedWeather {
             XCTAssertEqual(2, weather.hourly.data.count)
             XCTAssertEqual(2, weather.daily.data.count)
         default:
-            XCTFail()
+            XCTFail("testRequest failed")
         }
     }
-    
+
     func testAPIErrorMessageGetter() {
         XCTAssertEqual(APIError.decodingError.message, "Decoding error")
         XCTAssertEqual(APIError.networkError.message, "Network error")

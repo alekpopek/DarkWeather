@@ -5,15 +5,15 @@
 //  Created by Aleksander Popek on 01/12/2020.
 //
 
-import Foundation
+import UIKit
 import CoreLocation
 
 class MainViewModel {
-    
-    private let apiClient:APIClientProtocol
-    
+
+    private let apiClient: APIClientProtocol
+
     /// Populate items array everytime weather object is set
-    var weather:Weather? {
+    var weather: Weather? {
         didSet {
             items.removeAll()
             if let weather = weather {
@@ -40,27 +40,39 @@ class MainViewModel {
             }
         }
     }
-    
+
     /// Tableview data source
-    var items:[Item] = []
+    var items: [Item] = []
 
     /// Returns true if API request is active
-    private var isLoading:Bool = false
+    private var isLoading: Bool = false
 
     /// User location handling
-    private var longitude:Double?
-    private var latitude:Double?
+    private var longitude: Double?
+    private var latitude: Double?
 
-    var location:CLLocation? {
+    var location: CLLocation? {
         didSet {
             longitude = location?.coordinate.longitude
             latitude = location?.coordinate.latitude
         }
     }
-    
-    var error: APIError?
-        
-    init(apiClient:APIClientProtocol = APIClient()) {
+
+    var error: APIError? {
+        didSet {
+            if let error = error {
+                items.removeAll()
+                items.append(
+                    Item(
+                        type: .error,
+                        title: error.message
+                    )
+                )
+            }
+        }
+    }
+
+    init(apiClient: APIClientProtocol = APIClient()) {
         self.apiClient = apiClient
     }
 }

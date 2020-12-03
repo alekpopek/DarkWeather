@@ -9,7 +9,7 @@ import Foundation
 
 /// The protocol used to define the specifications necessary for a APIService.
 protocol APIServiceProtocol {
-    
+
     /// API baseURL.
     var baseURL: String { get }
 
