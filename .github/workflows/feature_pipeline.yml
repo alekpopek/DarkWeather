@@ -1,0 +1,19 @@
+name: Feature pipeline
+
+on: pull_request
+
+jobs:
+  test:
+    name: Test
+    runs-on: macOS-latest
+    strategy:
+        matrix:
+          destination: ['platform=iOS Simulator,OS=14.2,name=iPhone 11']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Build and test
+        run: |
+          xcodebuild clean test -project DarkWeather.xcodeproj -scheme DarkWeather -destination "${destination}"
+        env: 
+         destination: ${{ matrix.destination }}
