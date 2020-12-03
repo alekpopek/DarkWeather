@@ -10,10 +10,12 @@ import UIKit
 enum ItemType {
     case temperature
     case daily
-    
-    var height:CGFloat {
+    case error
+
+    var height: CGFloat {
         switch self {
-        case .temperature:
+        case .temperature,
+             .error:
             return 250.0
         case .daily:
             return 60.0

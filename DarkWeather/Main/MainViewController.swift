@@ -8,34 +8,38 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    
-    let tableView:UITableView = UITableView()
-    
-    var viewModel:MainViewModel!
-    
+
+    let tableView: UITableView = UITableView()
+
+    var viewModel: MainViewModel!
+
     override func loadView() {
         super.loadView()
-     
+
         view.backgroundColor = UIColor.systemBackground
-        
+
         setupNavigationController()
         setupTableView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         tableView.reloadData()
-        
+
         LocationManager.sharedInstance.getUserLocation { (location) in
-            /// Store location and load weather data
+            // Store location and load weather data
             self.viewModel.location = location
             self.fetchData()
-            
-            /// Display city name as navigation title
+
+            // Display city name as navigation title
             if let location = location {
                 LocationManager.sharedInstance.getCityName(forLocation: location) { (city) in
-                    self.title = city
+                    if let city = city {
+                        self.title = city
+                    } else {
+                        self.title = "DarkWeather"
+                    }
                 }
             }
         }
@@ -46,23 +50,24 @@ class MainViewController: UIViewController {
             self?.tableView.reloadData()
         }
     }
-    
+
     private func setupNavigationController() {
         navigationController?.navigationBar.shadowImage = UIImage()
     }
-    
+
     private func setupTableView() {
         view.addSubview(tableView)
-        
+
         tableView.register(TemperatureTableViewCell.self)
         tableView.register(DailyTableViewCell.self)
+        tableView.register(ErrorTableViewCell.self)
 
         tableView.dataSource = self
         tableView.delegate = self
-        
+
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 50.0
-        
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -77,7 +82,7 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.items.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = viewModel.items[indexPath.row]
         switch item.type {
@@ -86,12 +91,17 @@ extension MainViewController: UITableViewDataSource {
             cell.temperatureLabel.text = item.title
             cell.summaryLabel.text = item.subtitle
             return cell
-            
+
         case .daily:
             let cell = tableView.dequeueCell(DailyTableViewCell.self, forIndexPath: indexPath)
             cell.titleLabel.text = item.title
             cell.subtitleLabel.text = item.subtitle
             cell.setTemperature(min: item.temperatureMin, max: item.temperatureMax)
+            return cell
+
+        case .error:
+            let cell = tableView.dequeueCell(ErrorTableViewCell.self, forIndexPath: indexPath)
+            cell.errorLabel.text = item.title
             return cell
         }
     }

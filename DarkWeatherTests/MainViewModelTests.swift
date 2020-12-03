@@ -11,8 +11,8 @@ import CoreLocation
 
 class MainViewModelTests: XCTestCase, MockedWeather {
 
-    var sut:MainViewModel!
-    var mockedAPIClient:MockedAPIClient<Weather>!
+    var sut: MainViewModel!
+    var mockedAPIClient: MockedAPIClient<Weather>!
 
     override func setUp() {
         super.setUp()
@@ -20,18 +20,18 @@ class MainViewModelTests: XCTestCase, MockedWeather {
         mockedAPIClient = MockedAPIClient()
         sut = MainViewModel(apiClient: mockedAPIClient)
     }
-    
+
     override func tearDown() {
         mockedAPIClient = nil
         sut = nil
 
         super.tearDown()
     }
-    
+
     func testDidSetWeather() {
         /// Given
         sut.weather = mockedWeather
-        
+
         /// When
         let items = sut.items
 
@@ -42,11 +42,11 @@ class MainViewModelTests: XCTestCase, MockedWeather {
         XCTAssertEqual(.daily, items[1].type)
         XCTAssertEqual(.daily, items[2].type)
     }
-    
+
     func testLoadWeatherWithNoCoordinates() {
         /// Given
         mockedAPIClient.data = mockedWeather
-        
+
         /// When
         let expectation = XCTestExpectation(description: "load weather")
         sut.loadWeather {
@@ -62,7 +62,7 @@ class MainViewModelTests: XCTestCase, MockedWeather {
         /// Given
         mockedAPIClient.data = mockedWeather
         sut.location = CLLocation(latitude: 1.0, longitude: -1.0)
-        
+
         /// When
         let expectation = XCTestExpectation(description: "load weather")
         sut.loadWeather {
@@ -82,7 +82,7 @@ class MainViewModelTests: XCTestCase, MockedWeather {
         /// Given
         mockedAPIClient.forcedError = .noDataError
         sut.location = CLLocation(latitude: 1.0, longitude: -1.0)
-        
+
         /// When
         let expectation = XCTestExpectation(description: "load weather")
         sut.loadWeather {
@@ -92,7 +92,8 @@ class MainViewModelTests: XCTestCase, MockedWeather {
 
         /// Then
         XCTAssertNil(sut.weather)
-        XCTAssertTrue(sut.items.isEmpty)
+        XCTAssertEqual(1, sut.items.count)
+        XCTAssertEqual(.error, sut.items[0].type)
         XCTAssertEqual(sut.error, .noDataError)
     }
 }

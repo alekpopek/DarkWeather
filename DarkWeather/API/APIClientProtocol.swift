@@ -8,7 +8,7 @@
 import Foundation
 
 protocol APIClientProtocol {
-    func request<T:Decodable>(
+    func request<T: Decodable>(
         target: APIService,
         type: T.Type,
         session: URLSession,
@@ -18,7 +18,7 @@ protocol APIClientProtocol {
 
 extension APIClientProtocol {
     /// Used to allow default value in protocol
-    func request<T:Decodable>(
+    func request<T: Decodable>(
         target: APIService,
         type: T.Type,
         session: URLSession = URLSession(configuration: .default),

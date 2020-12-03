@@ -11,8 +11,11 @@ extension UITableView {
     func register<T: UITableViewCell>(_: T.Type) {
         self.register(T.self, forCellReuseIdentifier: String(describing: T.self))
     }
-    
-    func dequeueCell<T:UITableViewCell>(_: T.Type, forIndexPath indexPath:IndexPath) -> T {
-        return dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as! T
+
+    func dequeueCell<T: UITableViewCell>(_: T.Type, forIndexPath indexPath: IndexPath) -> T {
+        guard let cell = dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as? T else {
+            fatalError("Unable to Dequeue Reusable Table View Cell")
+        }
+        return cell
     }
 }

@@ -11,7 +11,7 @@ import Foundation
 struct Item {
     var type: ItemType
     var title: String
-    var subtitle: String
+    var subtitle: String?
     var temperatureMin: Double?
     var temperatureMax: Double?
 }

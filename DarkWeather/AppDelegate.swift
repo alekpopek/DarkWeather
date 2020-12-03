@@ -11,14 +11,17 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     let appCoordinator = AppCoordinator()
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-            
+
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+
         setupAppearance()
         appCoordinator.start()
         return true
     }
-    
+
     private func setupAppearance() {
         // Set global navigationbar title style
         UINavigationBar.appearance().titleTextAttributes = [

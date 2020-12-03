@@ -16,10 +16,8 @@ In order to use the app you need to add your darksky.net API key in `AppSecrets.
 - [DarkSky](https://darksky.net) - Dark Sky offers hyperlocal weather information.
 
 ## TODO
-- Error handling
 - UI Tests
-- Github Actions
-- SwiftLint
+- SwiftLint in Github Actions pipeline
 
 ## Author
 

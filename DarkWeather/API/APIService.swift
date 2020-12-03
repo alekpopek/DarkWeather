@@ -20,7 +20,7 @@ enum APIService: APIServiceProtocol {
             return Config.APIBaseUrl + Secrets.apiKey
         }
     }
-    
+
     /// The path that will be appended to API's base URL.
     var path: String {
         switch self {

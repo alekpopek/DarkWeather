@@ -9,9 +9,9 @@ import Foundation
 
 /// Used to store service specific vaues linek links or URLs
 class Config {
-   
+
    /// Returns API Url string
-   static var APIBaseUrl:String {
+   static var APIBaseUrl: String {
        return "https://api.darksky.net/forecast/"
    }
 }
