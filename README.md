@@ -1,3 +1,5 @@
+![Feature Pipeline](https://github.com/alekpopek/DarkWeather/workflows/Feature%20pipeline/badge.svg)
+
 # DarkWeather
 A simple iOS Swift demo project showcasing the setup of MVVMC Architecture, APIClient and UnitTests
 
