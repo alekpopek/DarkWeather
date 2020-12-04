@@ -11,7 +11,7 @@ In order to use the app you need to add your darksky.net API key in `AppSecrets.
 ## Features
 - [x] Dark mode support
 - [x] Content is backend driven
-- [x] I didn't use any 3rd party frameworks
+- [x] No external dependancies
 - [x] UI was constructed in code using AutoLayout
 
 ## External services
